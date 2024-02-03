@@ -1,4 +1,5 @@
 #pragma once
+#include "SDL.h"
 #include <vector>
 
 class Game
@@ -10,10 +11,16 @@ public:
 	void RunLoop();
 	void Shutdown();
 
+	void AddActor(class Actor* actor);
+	void RemoveActor(class Actor* actor);
+
 private:
 	// All the actors in the game
 	std::vector<class Actor*> mActors;
 	// Any pending actors
-	std::vector<class Actors*> mPendingActors;
+	std::vector<class Actor*> mPendingActors;
+	// Track if we're updating actors right now
+	bool mUpdatingActors;
+
 };
 
