@@ -1,6 +1,8 @@
 #pragma once
 #include "SDL.h"
 #include <vector>
+#include <unordered_map>
+#include <string>
 
 class Game
 {
@@ -14,13 +16,23 @@ public:
 	void AddActor(class Actor* actor);
 	void RemoveActor(class Actor* actor);
 
+	SDL_Texture* GetTexture(const std::string& fileName);
+
 private:
 	void UpdateGame();
+	void LoadData();
+	void UnloadData();
+
+
+	// Map of textures loaded
+	std::unordered_map<std::string, SDL_Texture*> mTextures;
 
 	// All the actors in the game
 	std::vector<class Actor*> mActors;
 	// Any pending actors
 	std::vector<class Actor*> mPendingActors;
+
+	// All the sprite components drawn
 
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
@@ -28,6 +40,8 @@ private:
 	bool mIsRunning;
 	// Track if we're updating actors right now
 	bool mUpdatingActors;
+
+	// Game specific
 
 };
 
