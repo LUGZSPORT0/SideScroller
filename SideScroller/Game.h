@@ -16,13 +16,16 @@ public:
 	void AddActor(class Actor* actor);
 	void RemoveActor(class Actor* actor);
 
-	SDL_Texture* GetTexture(const std::string& fileName);
+	void AddSprite(class SpriteComponent* sprite);
+	void RemoveSprite(class SpriteComponent* sprite);
 
+	SDL_Texture* GetTexture(const std::string& fileName);
 private:
+	void ProcessInput();
 	void UpdateGame();
+	void GenerateOutput();
 	void LoadData();
 	void UnloadData();
-
 
 	// Map of textures loaded
 	std::unordered_map<std::string, SDL_Texture*> mTextures;
@@ -33,15 +36,17 @@ private:
 	std::vector<class Actor*> mPendingActors;
 
 	// All the sprite components drawn
+	std::vector<class SpriteComponents*> mSprites;
 
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
 	Uint32 mTicksCount;
 	bool mIsRunning;
+
 	// Track if we're updating actors right now
 	bool mUpdatingActors;
 
 	// Game specific
-
+	class Ship* mShip; // Player's ship
 };
 
