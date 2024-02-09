@@ -2,6 +2,8 @@
 #include "SDL_image.h"
 #include <algorithm>
 #include "Actor.h"
+#include "SpriteComponent.h"
+
 
 Game::Game()
 :mWindow(nullptr)
@@ -36,7 +38,7 @@ bool Game::Initialize()
 
 	if (IMG_Init(IMG_INIT_PNG) == 0)
 	{
-		SDL_Log("Unable to initialize SDL_Image", SDL_GetError());
+		SDL_Log("Unable to initialize SDL_Image: %s", SDL_GetError());
 		return false;
 	}
 
@@ -47,6 +49,41 @@ bool Game::Initialize()
 	return true;
 }
 
+void Game::RunLoop()
+{
+	while (mIsRunning)
+	{
+		ProcessInput();
+		UpdateGame();
+		GenerateOutput();
+	}
+}
+
+void Game::ProcessInput()
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+			switch (event.type)
+			{
+				case SDL_QUIT:
+					mIsRunning = false;
+					break;
+			}
+		}
+	}
+
+	const Uint8* state = SDL_GetKeyboardState(NULL);
+	if (state[SDL_SCANCODE_ESCAPE])
+	{
+		mIsRunning = false;
+	}
+
+	// Process ship input
+
+}
 void Game::UpdateGame()
 {
 	// Compute delta time 
@@ -91,15 +128,6 @@ void Game::UpdateGame()
 	}
 }
 
-void Game::AddActor(Actor* actor)
-{
-	// If updating actors, need to add to pending
-	if (mUpdatingActors)
-		mPendingActors.emplace_back(actor);
-	else
-		mActors.emplace_back(actor);
-}
-
 void Game::LoadData()
 {
 	// Create player's ship
@@ -118,11 +146,16 @@ void Game::UnloadData()
 	// Delete actors
 	// Because ~Actor calls RemoveActor, have to use a different style loop
 	while (!mActors.empty())
+	{
 		delete mActors.back();
+	}
+
 
 	// Destroy textures
 	for (auto i : mTextures)
+	{
 		SDL_DestroyTexture(i.second);
+	}
 	mTextures.clear();
 }
 
@@ -160,6 +193,24 @@ SDL_Texture* Game::GetTexture(const std::string& fileName)
 	return tex;
 }
 
+void Game::Shutdown()
+{
+	UnloadData();
+	IMG_Quit();
+	SDL_DestroyRenderer(mRenderer);
+	SDL_DestroyWindow(mWindow);
+	SDL_Quit();
+}
+
+void Game::AddActor(Actor* actor)
+{
+	// If updating actors, need to add to pending
+	if (mUpdatingActors)
+		mPendingActors.emplace_back(actor);
+	else
+		mActors.emplace_back(actor);
+}
+
 void Game::RemoveActor(Actor* actor)
 {
 	// Is it in pending actors
@@ -179,4 +230,24 @@ void Game::RemoveActor(Actor* actor)
 		std::iter_swap(iter, mActors.end() - 1);
 		mActors.pop_back();
 	}
+}
+
+void Game::AddSprite(SpriteComponent* sprite)
+{
+	// Find the insertion point in the sorted vector
+	// (The first element with a higher draw order than me)
+	int myDrawOrder = sprite->GetDrawOrder();
+	auto iter = mSprites.begin();
+	for (;
+		iter != mSprites.end();
+		++iter)
+	{
+		if (myDrawOrder < (*iter)->GetDrawOrder())
+		{
+			break;
+		}
+	}
+
+	// Inserts element before position of itereator
+	mSprites.insert(iter, sprite);
 }
