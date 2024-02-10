@@ -2,7 +2,9 @@
 #include "SDL_image.h"
 #include <algorithm>
 #include "Actor.h"
+#include "Ship.h"
 #include "SpriteComponent.h"
+#include "BGSpriteComponent.h"
 
 
 Game::Game()
@@ -82,6 +84,7 @@ void Game::ProcessInput()
 	}
 
 	// Process ship input
+	mShip->ProcessKeyboard(state);
 
 }
 void Game::UpdateGame()
@@ -128,17 +131,51 @@ void Game::UpdateGame()
 	}
 }
 
+void Game::GenerateOutput()
+{
+	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
+	SDL_RenderClear(mRenderer);
+
+	// Draw  all sprite components
+	for (auto sprite : mSprites)
+	{
+		sprite->Draw(mRenderer);
+	}
+
+	SDL_RenderPresent(mRenderer);
+}
+
 void Game::LoadData()
 {
 	// Create player's ship
+	mShip = new Ship(this);
+	mShip->SetPosition(Vector2(100.0f, 384.0f));
+	mShip->SetScale(1.5f);
 
 	// Create actor for the background (this doesn't need a subclass)
 	Actor* temp = new Actor(this);
 	temp->SetPosition(Vector2(512.0f, 384.0f));
 	
 	// Create the "far back" background
-
+	Actor* temp = new Actor(this);
+	temp->SetPosition(Vector2(512.0f, 384.0f));
 	// Create the closer background
+	BGSpriteComponent* bg = new BGSpriteComponent(temp);
+	bg->SetScreenSize(Vector2(1024.0f, 768.0f));
+	std::vector<SDL_Texture*> bgtexs = {
+		GetTexture("Assets/Farback01.png"),
+		GetTexture("Assets/Farback02.png")
+	};
+	bg->SetBGTextures(bgtexs);
+	bg->SetScrollSpeed(-100.0f);
+	// Create the closer background
+	bg = new BGSpriteComponent(temp, 50);
+	bgtexs = {
+		GetTexture("Assets/Star01.png"),
+		GetTexture("Assets/Star02.png")
+	};
+	bg->SetBGTextures(bgtexs);
+	bg->SetScrollSpeed(-200.0f);
 }
 
 void Game::UnloadData()
@@ -149,7 +186,6 @@ void Game::UnloadData()
 	{
 		delete mActors.back();
 	}
-
 
 	// Destroy textures
 	for (auto i : mTextures)
@@ -238,7 +274,7 @@ void Game::AddSprite(SpriteComponent* sprite)
 	// (The first element with a higher draw order than me)
 	int myDrawOrder = sprite->GetDrawOrder();
 	auto iter = mSprites.begin();
-	for (;
+	for ( ;
 		iter != mSprites.end();
 		++iter)
 	{
@@ -250,4 +286,11 @@ void Game::AddSprite(SpriteComponent* sprite)
 
 	// Inserts element before position of itereator
 	mSprites.insert(iter, sprite);
+}
+
+void Game::RemoveSprite(SpriteComponent* sprite)
+{
+	// (We can't swap because it ruins ordering)
+	auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
+	mSprites.erase(iter);
 }

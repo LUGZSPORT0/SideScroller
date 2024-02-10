@@ -29,6 +29,5 @@ private:
 	std::vector<BGTexture> mBGTextures;
 	Vector2 mScreenSize;
 	float mScrollSpeed;
-
 };
 
