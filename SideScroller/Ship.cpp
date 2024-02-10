@@ -42,6 +42,7 @@ void Ship::UpdateActor(float deltaTime)
 	{
 		pos.y = 743.0f;
 	}
+	SetPosition(pos);
 }
 
 void Ship::ProcessKeyboard(const uint8_t* state)

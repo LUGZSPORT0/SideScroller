@@ -30,6 +30,18 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimSpriteComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BGSpriteComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -44,5 +56,51 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimSpriteComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BGSpriteComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SideScroller.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Farback01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Farback02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship03.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship04.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Stars.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

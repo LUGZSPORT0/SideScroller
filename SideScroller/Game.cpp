@@ -5,7 +5,7 @@
 #include "Ship.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
-
+#include "resource.h"
 
 Game::Game()
 :mWindow(nullptr)
@@ -157,8 +157,6 @@ void Game::LoadData()
 	temp->SetPosition(Vector2(512.0f, 384.0f));
 	
 	// Create the "far back" background
-	Actor* temp = new Actor(this);
-	temp->SetPosition(Vector2(512.0f, 384.0f));
 	// Create the closer background
 	BGSpriteComponent* bg = new BGSpriteComponent(temp);
 	bg->SetScreenSize(Vector2(1024.0f, 768.0f));
@@ -171,8 +169,8 @@ void Game::LoadData()
 	// Create the closer background
 	bg = new BGSpriteComponent(temp, 50);
 	bgtexs = {
-		GetTexture("Assets/Star01.png"),
-		GetTexture("Assets/Star02.png")
+		GetTexture("Assets/Stars.png"),
+		GetTexture("Assets/Stars.png")
 	};
 	bg->SetBGTextures(bgtexs);
 	bg->SetScrollSpeed(-200.0f);

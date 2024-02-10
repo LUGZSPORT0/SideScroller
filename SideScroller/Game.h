@@ -36,7 +36,7 @@ private:
 	std::vector<class Actor*> mPendingActors;
 
 	// All the sprite components drawn
-	std::vector<class SpriteComponents*> mSprites;
+	std::vector<class SpriteComponent*> mSprites;
 
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
