@@ -156,7 +156,7 @@ void Game::LoadData()
 	// Create enemy ship
 	mEnemy = new Enemy(this);
 	mEnemy->SetPosition(Vector2(900.0f, 384.0f));
-	mEnemy->SetScale(1.0f);
+	mEnemy->SetScale(0.755f);
 
 	// Create actor for the background (this doesn't need a subclass)
 	Actor* temp = new Actor(this);
