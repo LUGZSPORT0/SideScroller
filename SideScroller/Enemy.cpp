@@ -1,8 +1,8 @@
-#include "Ship.h"
+#include "Enemy.h"
 #include "AnimSpriteComponent.h"
 #include "Game.h"
 
-Ship::Ship(Game* game)
+Enemy::Enemy(Game* game)
 	:Actor(game)
 	, mRightSpeed(0.0f)
 	, mDownSpeed(0.0f)
@@ -12,16 +12,18 @@ Ship::Ship(Game* game)
 	// Store the textures 
 	std::vector<std::vector<SDL_Texture*>> anims = {
 		{
-			game->GetTexture("Assets/Ship01.png"),
-			game->GetTexture("Assets/Ship02.png"),
-			game->GetTexture("Assets/Ship03.png"),
-			game->GetTexture("Assets/Ship04.png")
+			game->GetTexture("Assets/Enemy01.png"),
+			game->GetTexture("Assets/Enemy02.png"),
+			game->GetTexture("Assets/Enemy03.png"),
+			game->GetTexture("Assets/Enemy04.png"),
+			game->GetTexture("Assets/Enemy05.png"),
+			game->GetTexture("Assets/Enemy06.png")
 		}
 	};
 	asc->SetAnimTextures(anims);
 }
 
-void Ship::UpdateActor(float deltaTime)
+void Enemy::UpdateActor(float deltaTime)
 {
 	Actor::UpdateActor(deltaTime);
 	// Update position based on speeds and delta time
@@ -48,7 +50,7 @@ void Ship::UpdateActor(float deltaTime)
 	SetPosition(pos);
 }
 
-void Ship::ProcessKeyboard(const uint8_t* state)
+void Enemy::ProcessKeyboard(const uint8_t* state)
 {
 	mRightSpeed = 0.0f;
 	mDownSpeed = 0.0f;

@@ -3,9 +3,9 @@
 #include <algorithm>
 #include "Actor.h"
 #include "Ship.h"
+#include "Enemy.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
-#include "resource.h"
 
 Game::Game()
 :mWindow(nullptr)
@@ -87,6 +87,7 @@ void Game::ProcessInput()
 	mShip->ProcessKeyboard(state);
 
 }
+
 void Game::UpdateGame()
 {
 	// Compute delta time 
@@ -152,6 +153,11 @@ void Game::LoadData()
 	mShip->SetPosition(Vector2(100.0f, 384.0f));
 	mShip->SetScale(1.5f);
 
+	// Create enemy ship
+	mEnemy = new Enemy(this);
+	mEnemy->SetPosition(Vector2(900.0f, 384.0f));
+	mEnemy->SetScale(1.0f);
+
 	// Create actor for the background (this doesn't need a subclass)
 	Actor* temp = new Actor(this);
 	temp->SetPosition(Vector2(512.0f, 384.0f));
@@ -166,6 +172,7 @@ void Game::LoadData()
 	};
 	bg->SetBGTextures(bgtexs);
 	bg->SetScrollSpeed(-100.0f);
+
 	// Create the closer background
 	bg = new BGSpriteComponent(temp, 50);
 	bgtexs = {

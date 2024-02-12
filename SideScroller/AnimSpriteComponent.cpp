@@ -8,7 +8,7 @@ AnimSpriteComponent::AnimSpriteComponent(Actor* owner, int drawOrder)
 {
 }
 
-void AnimSpriteComponent::Update(float deltaTime)
+void AnimSpriteComponent::Update(float deltaTime) // Update Inherited from Componenet
 {
 	SpriteComponent::Update(deltaTime);
 
@@ -29,13 +29,17 @@ void AnimSpriteComponent::Update(float deltaTime)
 	}
 }
 
-void AnimSpriteComponent::SetAnimTextures(const std::vector<SDL_Texture*>& textures)
+void AnimSpriteComponent::SetAnimTextures(const std::vector<std::vector<SDL_Texture*>>& textures)
 {
-	mAnimTextures = textures;
-	if (mAnimTextures.size() > 0)
+	for (auto it = textures.begin(); it != textures.end(); it++)
 	{
-		// Set the active texture to first frame
-		mCurrFrame = 0.0f;
-		SetTexture(mAnimTextures[0]);
+		mAnimTextures = *it;
+		if (mAnimTextures.size() > 0)
+		{
+			// Set the active texture to first frame
+			mCurrFrame = 0.0f;
+			SetTexture(mAnimTextures[0]);
+		}
 	}
+
 }
