@@ -35,7 +35,7 @@ void BGSpriteComponent::Draw(SDL_Renderer* renderer)
 		r.h = static_cast<int>(mScreenSize.y);
 		// Center the rectangle around the position of the owner
 		r.x = static_cast<int>(mOwner->GetPosition().x - r.w / 2 + bg.mOffset.x);
-		r.y = static_cast<int>(mOwner->GetPosition().y - r.w / 2 + bg.mOffset.y);
+		r.y = static_cast<int>(mOwner->GetPosition().y - r.h / 2 + bg.mOffset.y);
 
 		// Draw this background
 		SDL_RenderCopy(renderer,
@@ -53,7 +53,7 @@ void BGSpriteComponent::SetBGTextures(const std::vector<SDL_Texture*>& textures)
 	{
 		BGTexture temp;
 		temp.mTexture = tex;
-		// Each exture is screen width in offset
+		// Each texture is screen width in offset
 		temp.mOffset.x = count * mScreenSize.x;
 		temp.mOffset.y = 0;
 		mBGTextures.emplace_back(temp);
