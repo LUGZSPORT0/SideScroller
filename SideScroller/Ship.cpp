@@ -10,6 +10,7 @@ Ship::Ship(Game* game)
 	// Create an animated sprite component
 	AnimSpriteComponent* asc = new AnimSpriteComponent(this);
 	// Store the textures 
+	asc->SetAnimLoop(true);
 	std::vector<std::vector<SDL_Texture*>> anims = {
 		{
 			game->GetTexture("Assets/Ship01.png"),

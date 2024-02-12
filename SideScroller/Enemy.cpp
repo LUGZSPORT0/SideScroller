@@ -10,6 +10,7 @@ Enemy::Enemy(Game* game)
 	// Create an animated sprite component
 	AnimSpriteComponent* asc = new AnimSpriteComponent(this);
 	// Store the textures 
+	asc->SetAnimLoop(true);
 	std::vector<std::vector<SDL_Texture*>> anims = {
 		{
 			game->GetTexture("Assets/Enemy01.png"),
@@ -31,22 +32,22 @@ void Enemy::UpdateActor(float deltaTime)
 	pos.x += mRightSpeed * deltaTime;
 	pos.y += mDownSpeed * deltaTime;
 	// Restrict position to left half of screen
-	if (pos.x < 25.0f)
-	{
-		pos.x = 25.0f;
-	}
-	else if (pos.x > 500.0f)
-	{
-		pos.x = 500.f;
-	}
-	if (pos.y < 25.0f)
-	{
-		pos.y = 25.0f;
-	}
-	else if (pos.y > 743.0f)
-	{
-		pos.y = 743.0f;
-	}
+	//if (pos.x < 25.0f)
+	//{
+	//	pos.x = 25.0f;
+	//}
+	//else if (pos.x > 500.0f)
+	//{
+	//	pos.x = 500.f;
+	//}
+	//if (pos.y < 25.0f)
+	//{
+	//	pos.y = 25.0f;
+	//}
+	//else if (pos.y > 743.0f)
+	//{
+	//	pos.y = 743.0f;
+	//}
 	SetPosition(pos);
 }
 

@@ -19,9 +19,12 @@ void AnimSpriteComponent::Update(float deltaTime) // Update Inherited from Compo
 		mCurrFrame += mAnimFPS * deltaTime;
 
 		// Wrap current frame if needed
-		while (mCurrFrame >= mAnimTextures.size())
+		if (isLoop)
 		{
-			mCurrFrame -= mAnimTextures.size();
+			while (mCurrFrame >= mAnimTextures.size())
+			{
+				mCurrFrame -= mAnimTextures.size();
+			}
 		}
 
 		// Set the current texture
