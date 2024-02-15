@@ -33,7 +33,7 @@ void Lasers::UpdateActor(float deltaTime)
 	}
 	else if (pos.x > 500.0f)
 	{
-		this->SetState(EDead);
+		pos.x = 500.f;
 	}
 	if (pos.y < 25.0f)
 	{
