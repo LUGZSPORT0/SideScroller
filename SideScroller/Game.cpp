@@ -4,6 +4,7 @@
 #include "Actor.h"
 #include "Ship.h"
 #include "Enemy.h"
+#include "Lasers.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
 
@@ -151,7 +152,7 @@ void Game::LoadData()
 	// Create player's ship
 	mShip = new Ship(this);
 	mShip->SetPosition(Vector2(100.0f, 384.0f));
-	mShip->SetScale(1.5f);
+	mShip->SetScale(1.0f);
 
 	// Create enemy ship
 	mEnemy = new Enemy(this);

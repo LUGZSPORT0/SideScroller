@@ -1,11 +1,10 @@
 #pragma once
 #include "Actor.h"
-#include "Lasers.h"
 
-class Ship : public Actor
+class Lasers : public Actor
 {
-public: 
-	Ship(class Game* game);
+public:
+	Lasers(class Game* game);
 	void UpdateActor(float deltaTime) override;
 	void ProcessKeyboard(const uint8_t* state);
 	float GetRightSpeed() const { return mRightSpeed; }
@@ -13,6 +12,5 @@ public:
 private:
 	float mRightSpeed;
 	float mDownSpeed;
-	class Lasers* mLaser;
 };
 

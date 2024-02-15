@@ -1,4 +1,5 @@
 #include "Ship.h"
+#include "Lasers.h"
 #include "AnimSpriteComponent.h"
 #include "Game.h"
 
@@ -20,6 +21,8 @@ Ship::Ship(Game* game)
 		}
 	};
 	asc->SetAnimTextures(anims);
+
+	
 }
 
 void Ship::UpdateActor(float deltaTime)
@@ -70,5 +73,13 @@ void Ship::ProcessKeyboard(const uint8_t* state)
 	if (state[SDL_SCANCODE_W])
 	{
 		mDownSpeed -= 300.0f;
+	}
+	if (state[SDL_SCANCODE_SPACE])
+	{	
+		Game* game = GetGame();
+		mLaser = new Lasers(game);
+		Vector2 shipLocation = this->GetPosition();
+		mLaser->SetPosition(Vector2(shipLocation.x + 45.0f, shipLocation.y));
+		mLaser->SetScale(0.40f);
 	}
 }

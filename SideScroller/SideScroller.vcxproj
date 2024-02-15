@@ -143,6 +143,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Lasers.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SideScroller.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Lasers.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Ship.h" />
