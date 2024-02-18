@@ -7,6 +7,7 @@
 #include "Lasers.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
+#include <iostream>
 
 Game::Game()
 :mWindow(nullptr)
@@ -86,7 +87,6 @@ void Game::ProcessInput()
 
 	// Process ship input
 	mShip->ProcessKeyboard(state);
-
 }
 
 void Game::UpdateGame()
@@ -132,6 +132,20 @@ void Game::UpdateGame()
 		delete actor;
 	}
 }
+
+void Game::IsEnemyHit(class Lasers* laser)
+{
+	for (auto actor : mActors)
+	{
+		std::cout << mActors.size() << "\n";
+		if (laser->GetPosition().x >=  actor->GetPosition().x - 20 && laser->GetPosition().y <= actor->GetPosition().y + 50 && actor->GetAllowDamage()==true)
+		{
+			actor->SetState(actor->EDead);
+			laser->SetState(actor->EDead);
+		}
+	}
+}
+
 
 void Game::GenerateOutput()
 {

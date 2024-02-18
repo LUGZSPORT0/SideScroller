@@ -16,7 +16,7 @@ Lasers::Lasers(Game* game)
 			game->GetTexture("Assets/Laser.png")
 		}
 	};
-	asc->SetAnimTextures(anims);	
+	asc->SetAnimTextures(anims);
 }
 
 void Lasers::UpdateActor(float deltaTime)
@@ -27,11 +27,21 @@ void Lasers::UpdateActor(float deltaTime)
 	pos.x += 250.0f * deltaTime;
 	pos.y += mDownSpeed * deltaTime;
 	// Restrict position to left half of screen
-	if (pos.x > 1024.0f)
+	if (pos.x < 25.0f)
 	{
-		this->SetState(EDead);
+		pos.x = 25.0f;
+	}
+	else if (pos.x > 500.0f)
+	{
+		pos.x = 500.f;
+	}
+	if (pos.y < 25.0f)
+	{
+		pos.y = 25.0f;
+	}
+	else if (pos.y > 743.0f)
+	{
+		pos.y = 743.0f;
 	}
 	SetPosition(pos);
-	Game* game = this->GetGame();
- 	game->IsEnemyHit(this);
 }

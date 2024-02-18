@@ -12,5 +12,6 @@ public:
 private:
 	float mRightSpeed;
 	float mDownSpeed;
+	class Enemy* mEnemy;
 };
 

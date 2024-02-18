@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include "Math.h"
 
 class Game
 {
@@ -15,10 +16,11 @@ public:
 
 	void AddActor(class Actor* actor);
 	void RemoveActor(class Actor* actor);
+	
 
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
-
+	void IsEnemyHit(class Lasers* laser);
 	SDL_Texture* GetTexture(const std::string& fileName);
 private:
 	void ProcessInput();

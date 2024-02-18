@@ -16,6 +16,7 @@ Actor::Actor(Game* game)
 	, mPosition(Vector2::Zero)
 	, mScale(1.0f)
 	, mRotation(0.0f)
+	, mTakeDamage(false)
 	, mGame(game)
 {
 	mGame->AddActor(this);
@@ -81,3 +82,13 @@ void Actor::RemoveComponent(Component* component)
 		mComponents.erase(iter);
 	}
 }
+//
+//void Actor::SetAllowDamage(bool takeDamage)
+//{
+//	mTakeDamage = takeDamage;
+//}
+//
+//bool Actor::GetAllowDamage(bool takeDamage)
+//{
+//	return mTakeDamage = takeDamage;
+//}

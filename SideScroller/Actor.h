@@ -28,6 +28,8 @@ public:
 	void SetScale(float scale) { mScale = scale; }
 	float GetRotation() const { return mRotation; }
 	void SetRotation(float rotation) { mRotation = rotation; }
+	bool GetAllowDamage() { return mTakeDamage; }
+	void SetAllowDamage(bool takeDamage) { mTakeDamage = takeDamage; }
 
 	State GetState() const { return mState; }
 	void SetState(State state) { mState = state; }
@@ -44,6 +46,7 @@ private:
 	Vector2 mPosition;
 	float mScale;
 	float mRotation;
+	bool mTakeDamage;
 
 	std::vector<class Component*> mComponents;
 	class Game* mGame;
