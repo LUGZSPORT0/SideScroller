@@ -138,7 +138,9 @@ void Game::IsEnemyHit(class Lasers* laser)
 	for (auto actor : mActors)
 	{
 		std::cout << mActors.size() << "\n";
-		if (laser->GetPosition().x >=  actor->GetPosition().x - 20 && laser->GetPosition().y <= actor->GetPosition().y + 50 && actor->GetAllowDamage()==true)
+		if ((laser->GetPosition().x >=  actor->GetPosition().x - 20) && (laser->GetPosition().x <= actor->GetPosition().x + 50) &&
+			(laser->GetPosition().y >= actor->GetPosition().y - 20) && (laser->GetPosition().x <= actor->GetPosition().x + 20)
+			&& actor->GetAllowDamage()==true)
 		{
 			actor->SetState(actor->EDead);
 			laser->SetState(actor->EDead);
