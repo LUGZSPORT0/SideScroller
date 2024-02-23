@@ -69,41 +69,65 @@ void Game::LoadData()
 	mEnemy->SetPosition(Vector2(900.0f, 384.0f));
 	mEnemy->SetScale(0.755f);
 
-	// Create actor for the background (this doesn't need a subclass)
-	Actor* temp = new Actor(this);
-	temp->SetPosition(Vector2(512.0f, 384.0f));
+	//// Create actor for the background (this doesn't need a subclass)
+	//Actor* temp = new Actor(this);
+	//temp->SetPosition(Vector2(512.0f, 384.0f));
 
-	// Create the "far back" background
-	BGSpriteComponent* bg = new BGSpriteComponent(temp);
-	bg->SetScreenSize(Vector2(1024.0f, 768.0f));
-	std::vector<SDL_Texture*> bgtexs = {
-		GetTexture("Assets/Farback01.png"),
-		GetTexture("Assets/Farback02.png")
-	};
-	bg->SetBGTextures(bgtexs);
-	bg->SetScrollSpeed(-100.0f);
+	//// Create the "far back" background
+	//BGSpriteComponent* bg = new BGSpriteComponent(temp);
+	//bg->SetScreenSize(Vector2(1024.0f, 768.0f));
+	//std::vector<SDL_Texture*> bgtexs = {
+	//	GetTexture("Assets/Farback01.png"),
+	//	GetTexture("Assets/Farback02.png")
+	//};
+	//bg->SetBGTextures(bgtexs);
+	//bg->SetScrollSpeed(-100.0f);
 
-	// Create the closer background
-	bg = new BGSpriteComponent(temp, 50);
-	bgtexs = {
-		GetTexture("Assets/Stars.png")
-	};
-	bg->SetBGTextures(bgtexs);
-	bg->SetScrollSpeed(-200.0f);
+	//// Create the closer background
+	//bg = new BGSpriteComponent(temp, 90);
+	//bgtexs = {
+	//	GetTexture("Assets/Stars.png")
+	//};
+	//bg->SetBGTextures(bgtexs);
+	//bg->SetScrollSpeed(-200.0f);
 
 	// Create actor for layer 1 of the tile map
 	Actor* tileTemp = new Actor(this);
 	tileTemp->SetPosition(Vector2(0.0f, 0.0f));
 
 	// Create Layer 1 tile map
-	TileMapComponent* tm = new TileMapComponent(tileTemp);
+	TileMapComponent* tm = new TileMapComponent(tileTemp,99);
 	tm->SetTileSceenSize(Vector2(32.0f, 32.0f)); // sets mTile size
 	std::vector<SDL_Texture*> tmtexs = {
 		GetTexture("Assets/Tiles.png")
 	};
-
-		tm->SetTileTextures(tmtexs);
 	
+	tm->SetReadFile(0);
+	tm->ReadFromCSVFile();
+	tm->SetTileTextures(tmtexs);
+
+	// Create Layer 2 tile map
+	tm = new TileMapComponent(tileTemp, 50);
+	tm->SetTileSceenSize(Vector2(32.0f, 32.0f)); // sets mTile size
+	tmtexs = {
+		GetTexture("Assets/Tiles.png")
+	};
+	
+	tm->SetReadFile(1);
+	tm->ReadFromCSVFile();
+	tm->SetTileTextures(tmtexs);
+
+	// Create Layer 3 tile map
+	tm = new TileMapComponent(tileTemp,25);
+	tm->SetTileSceenSize(Vector2(32.0f, 32.0f)); // sets mTile size
+	tmtexs = {
+		GetTexture("Assets/Tiles.png")
+	};
+
+	tm->SetReadFile(2);
+	tm->ReadFromCSVFile();
+	tm->SetTileTextures(tmtexs);
+
 }
 
 void Game::RunLoop()

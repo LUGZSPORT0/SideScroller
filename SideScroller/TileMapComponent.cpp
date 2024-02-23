@@ -6,10 +6,11 @@
 #include <fstream>
 #include <cmath>
 #include <cstdlib>
+
 TileMapComponent::TileMapComponent(Actor* owner, int drawOrder)
 	:SpriteComponent(owner, drawOrder)
 {
-	
+
 }
 
 void TileMapComponent::Draw(SDL_Renderer* renderer)
@@ -19,37 +20,40 @@ void TileMapComponent::Draw(SDL_Renderer* renderer)
 	{
 		int count = 0;
 		int yCount = 0;
-		std::vector<int> file1;
-		file1 = ReadFromCSVFile();
-		for (auto& loc : file1)
+		
+		for (int i = 0; i < file1.size(); i++)
 		{
-			SDL_Rect r;
-			// Assume screen size dimensions
-			r.w = static_cast<int>(mTileSize.x);
-			r.h = static_cast<int>(mTileSize.y);
-			// Center the rectangle around the position of the owner
-			r.x = static_cast<int>(mOwner->GetPosition().x/2 + count);
-			r.y = static_cast<int>(mOwner->GetPosition().y/2 + yCount);
+			int count = 0;
+			int yCount = 0;
+			for (auto& loc : file1[i])
+			{
+				SDL_Rect r;
+				// Assume screen size dimensions
+				r.w = static_cast<int>(mTileSize.x);
+				r.h = static_cast<int>(mTileSize.y);
+				// Center the rectangle around the position of the owner
+				r.x = static_cast<int>(mOwner->GetPosition().x + count);
+				r.y = static_cast<int>(mOwner->GetPosition().y + yCount);
 
-			div_t result = std::div(loc, 8.0);
-			s.w = 32;
-			s.h = 32;
-			s.x = result.quot * 32;
-			s.y = result.rem * 32;
+				div_t result = std::div(loc, 8);
+				SDL_Rect s;
+				s.w = 32;
+				s.h = 32;
+				s.x = result.rem * 32;
+				s.y = result.quot * 32;
 				SDL_RenderCopy(renderer,
 					tile.mTexture,
 					&s,
 					&r
 				);
-
-			count += 32;
-			if (count % 1024 == 0)
-			{
-				count = 0;
-				yCount += 32;
+				count += 32;
+				if (count % 1024 == 0)
+				{
+					count = 0;
+					yCount += 32;
+				}
 			}
 		}
-
 	}
 }
 
@@ -70,10 +74,12 @@ void TileMapComponent::SetTileTextures(const std::vector<SDL_Texture*>& textures
 }
 
 // Add to Tile Map Component
-std::vector<int> TileMapComponent::ReadFromCSVFile()
+void TileMapComponent::ReadFromCSVFile()
 {	
 	std::vector<int> num;
-	std::ifstream tileMapFile("./Assets/MapLayer1.csv");
+	std::string arr[3] = { "./Assets/MapLayer1.csv","./Assets/MapLayer2.csv" ,"./Assets/MapLayer3.csv" };
+		
+	std::ifstream tileMapFile(arr[mReadFile]);
 
 	std::string lineFromFile;
 	while (getline(tileMapFile, lineFromFile))
@@ -86,5 +92,5 @@ std::vector<int> TileMapComponent::ReadFromCSVFile()
 			num.push_back(number);
 		}
 	}
-	return num;
+	file1.push_back(num);
 }

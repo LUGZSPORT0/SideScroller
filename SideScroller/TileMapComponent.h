@@ -10,7 +10,9 @@ public:
 	void Draw(SDL_Renderer* renderer) override;
 	void SetTileTextures(const std::vector<SDL_Texture*>& textures);
 	void SetTileSceenSize(const Vector2& size) { mTileSize = size; }
-	std::vector<int> ReadFromCSVFile();
+	void SetReadFile(const int fileNum) { mReadFile = fileNum; }
+	void ReadFromCSVFile();
+	
 
 private:
 	struct TileTexture
@@ -20,5 +22,6 @@ private:
 	};
 	std::vector<TileTexture> mTileTextures;
 	Vector2 mTileSize;
-	SDL_Rect s;
+	int mReadFile;
+	std::vector<std::vector<int>> file1;
 };
