@@ -82,13 +82,3 @@ void Actor::RemoveComponent(Component* component)
 		mComponents.erase(iter);
 	}
 }
-//
-//void Actor::SetAllowDamage(bool takeDamage)
-//{
-//	mTakeDamage = takeDamage;
-//}
-//
-//bool Actor::GetAllowDamage(bool takeDamage)
-//{
-//	return mTakeDamage = takeDamage;
-//}

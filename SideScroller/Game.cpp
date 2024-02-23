@@ -8,6 +8,10 @@
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
 #include <iostream>
+#include "TileMapComponent.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
 
 Game::Game()
 :mWindow(nullptr)
@@ -53,6 +57,55 @@ bool Game::Initialize()
 	return true;
 }
 
+void Game::LoadData()
+{
+	// Create player's ship
+	mShip = new Ship(this);
+	mShip->SetPosition(Vector2(100.0f, 384.0f));
+	mShip->SetScale(1.0f);
+
+	// Create enemy ship
+	mEnemy = new Enemy(this);
+	mEnemy->SetPosition(Vector2(900.0f, 384.0f));
+	mEnemy->SetScale(0.755f);
+
+	// Create actor for the background (this doesn't need a subclass)
+	Actor* temp = new Actor(this);
+	temp->SetPosition(Vector2(512.0f, 384.0f));
+
+	// Create the "far back" background
+	BGSpriteComponent* bg = new BGSpriteComponent(temp);
+	bg->SetScreenSize(Vector2(1024.0f, 768.0f));
+	std::vector<SDL_Texture*> bgtexs = {
+		GetTexture("Assets/Farback01.png"),
+		GetTexture("Assets/Farback02.png")
+	};
+	bg->SetBGTextures(bgtexs);
+	bg->SetScrollSpeed(-100.0f);
+
+	// Create the closer background
+	bg = new BGSpriteComponent(temp, 50);
+	bgtexs = {
+		GetTexture("Assets/Stars.png")
+	};
+	bg->SetBGTextures(bgtexs);
+	bg->SetScrollSpeed(-200.0f);
+
+	// Create actor for layer 1 of the tile map
+	Actor* tileTemp = new Actor(this);
+	tileTemp->SetPosition(Vector2(0.0f, 0.0f));
+
+	// Create Layer 1 tile map
+	TileMapComponent* tm = new TileMapComponent(tileTemp);
+	tm->SetTileSceenSize(Vector2(32.0f, 32.0f)); // sets mTile size
+	std::vector<SDL_Texture*> tmtexs = {
+		GetTexture("Assets/Tiles.png")
+	};
+
+		tm->SetTileTextures(tmtexs);
+	
+}
+
 void Game::RunLoop()
 {
 	while (mIsRunning)
@@ -70,12 +123,9 @@ void Game::ProcessInput()
 	{
 		switch (event.type)
 		{
-			switch (event.type)
-			{
-				case SDL_QUIT:
-					mIsRunning = false;
-					break;
-			}
+			case SDL_QUIT:
+				mIsRunning = false;
+				break;
 		}
 	}
 
@@ -133,22 +183,6 @@ void Game::UpdateGame()
 	}
 }
 
-void Game::IsEnemyHit(class Lasers* laser)
-{
-	for (auto actor : mActors)
-	{
-		std::cout << mActors.size() << "\n";
-		if ((laser->GetPosition().x >=  actor->GetPosition().x - 20) && (laser->GetPosition().x <= actor->GetPosition().x + 50) &&
-			(laser->GetPosition().y >= actor->GetPosition().y - 20) && (laser->GetPosition().x <= actor->GetPosition().x + 20)
-			&& actor->GetAllowDamage()==true)
-		{
-			actor->SetState(actor->EDead);
-			laser->SetState(actor->EDead);
-		}
-	}
-}
-
-
 void Game::GenerateOutput()
 {
 	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
@@ -163,41 +197,18 @@ void Game::GenerateOutput()
 	SDL_RenderPresent(mRenderer);
 }
 
-void Game::LoadData()
+void Game::IsEnemyHit(class Lasers* laser)
 {
-	// Create player's ship
-	mShip = new Ship(this);
-	mShip->SetPosition(Vector2(100.0f, 384.0f));
-	mShip->SetScale(1.0f);
-
-	// Create enemy ship
-	mEnemy = new Enemy(this);
-	mEnemy->SetPosition(Vector2(900.0f, 384.0f));
-	mEnemy->SetScale(0.755f);
-
-	// Create actor for the background (this doesn't need a subclass)
-	Actor* temp = new Actor(this);
-	temp->SetPosition(Vector2(512.0f, 384.0f));
-	
-	// Create the "far back" background
-	// Create the closer background
-	BGSpriteComponent* bg = new BGSpriteComponent(temp);
-	bg->SetScreenSize(Vector2(1024.0f, 768.0f));
-	std::vector<SDL_Texture*> bgtexs = {
-		GetTexture("Assets/Farback01.png"),
-		GetTexture("Assets/Farback02.png")
-	};
-	bg->SetBGTextures(bgtexs);
-	bg->SetScrollSpeed(-100.0f);
-
-	// Create the closer background
-	bg = new BGSpriteComponent(temp, 50);
-	bgtexs = {
-		GetTexture("Assets/Stars.png"),
-		GetTexture("Assets/Stars.png")
-	};
-	bg->SetBGTextures(bgtexs);
-	bg->SetScrollSpeed(-200.0f);
+	for (auto actor : mActors)
+	{
+		if ((laser->GetPosition().x >=  actor->GetPosition().x - 20) && (laser->GetPosition().x <= actor->GetPosition().x + 50) &&
+			(laser->GetPosition().y >= actor->GetPosition().y - 20) && (laser->GetPosition().y <= actor->GetPosition().y + 20)
+			&& actor->GetAllowDamage()==true)
+		{
+			actor->SetState(actor->EDead);
+			laser->SetState(actor->EDead);
+		}
+	}
 }
 
 void Game::UnloadData()
@@ -227,7 +238,6 @@ SDL_Texture* Game::GetTexture(const std::string& fileName)
 		tex = iter->second;
 	else
 	{
-		
 		// Load an image from file
 		SDL_Surface* surf = IMG_Load(fileName.c_str());
 		if (!surf)
@@ -236,7 +246,8 @@ SDL_Texture* Game::GetTexture(const std::string& fileName)
 			return nullptr;
 		}
 
-		// Create texture from surface
+		// Create texture from surface - convers an SDL_Surface to an SDL_Texture
+		// Returns a pointer to an SDL_Texture if successful, otherwise nullptr
 		tex = SDL_CreateTextureFromSurface(mRenderer, surf);
 		SDL_FreeSurface(surf);
 		if (!tex)

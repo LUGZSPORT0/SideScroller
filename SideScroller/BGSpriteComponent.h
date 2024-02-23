@@ -19,7 +19,7 @@ public:
 	float GetScrollSpeed() const { return mScrollSpeed; }
 	
 private:
-	// Struct to encapsulate each bg imate and its offsetf
+	// Struct to encapsulate each bg image and its offset
 	struct BGTexture
 	{
 		SDL_Texture* mTexture;

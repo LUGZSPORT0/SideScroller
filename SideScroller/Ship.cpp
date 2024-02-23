@@ -20,9 +20,7 @@ Ship::Ship(Game* game)
 			game->GetTexture("Assets/Ship04.png")
 		}
 	};
-	asc->SetAnimTextures(anims);
-
-	
+	asc->SetAnimTextures(anims);	
 }
 
 void Ship::UpdateActor(float deltaTime)
@@ -39,7 +37,7 @@ void Ship::UpdateActor(float deltaTime)
 	}
 	else if (pos.x > 500.0f)
 	{
-		pos.x = 500.f;
+		//pos.x = 500.f;
 	}
 	if (pos.y < 25.0f)
 	{

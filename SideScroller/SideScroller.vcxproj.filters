@@ -48,6 +48,9 @@
     <ClCompile Include="Lasers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMapComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -83,36 +86,8 @@
     <ClInclude Include="Lasers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="SideScroller.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="bitmap1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Farback01.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Farback02.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship01.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship02.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship03.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship04.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Stars.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="TileMapComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

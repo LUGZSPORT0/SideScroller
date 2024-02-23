@@ -148,6 +148,7 @@
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SideScroller.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="TileMapComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -161,19 +162,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="SpriteComponent.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="SideScroller.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Farback01.png" />
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Farback02.png" />
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship01.png" />
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship02.png" />
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship03.png" />
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Ship04.png" />
-    <Image Include="..\..\..\Programming\Game Programming\code\Chapter02\Assets\Stars.png" />
-    <Image Include="bitmap1.bmp" />
+    <ClInclude Include="TileMapComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,6 +9,7 @@ SpriteComponent::SpriteComponent(Actor* owner, int drawOrder)
 	, mTexWidth(0)
 	, mTexHeight(0)
 {
+	// adds itself to a vector of sprite components in the Game class via the Game::AddSprite function
 	mOwner->GetGame()->AddSprite(this);
 }
 
