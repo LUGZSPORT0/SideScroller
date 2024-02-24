@@ -49,8 +49,9 @@ private:
 	bool mUpdatingActors;
 
 	// Game specific
-	class Ship* mShip; // Player's ship
-	class Enemy* mEnemy; // Enemy ship
+	//class Ship* mShip; // Player's ship
+	//class Enemy* mEnemy; // Enemy ship
+	class Hero* mHero;
 
 };
 

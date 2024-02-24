@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "Actor.h"
 #include "Ship.h"
+#include "Hero.h"
 #include "Enemy.h"
 #include "Lasers.h"
 #include "SpriteComponent.h"
@@ -59,15 +60,20 @@ bool Game::Initialize()
 
 void Game::LoadData()
 {
-	// Create player's ship
-	mShip = new Ship(this);
-	mShip->SetPosition(Vector2(100.0f, 384.0f));
-	mShip->SetScale(1.0f);
+	//// Create player's ship
+	//mShip = new Ship(this);
+	//mShip->SetPosition(Vector2(100.0f, 384.0f));
+	//mShip->SetScale(1.0f);
 
-	// Create enemy ship
-	mEnemy = new Enemy(this);
-	mEnemy->SetPosition(Vector2(900.0f, 384.0f));
-	mEnemy->SetScale(0.755f);
+	//// Create enemy ship
+	//mEnemy = new Enemy(this);
+	//mEnemy->SetPosition(Vector2(900.0f, 384.0f));
+	//mEnemy->SetScale(0.755f);
+
+	// Create hero
+	mHero = new Hero(this);
+	mHero->SetPosition(Vector2(900.0f, 384.0f));
+	mHero->SetScale(1);
 
 	//// Create actor for the background (this doesn't need a subclass)
 	//Actor* temp = new Actor(this);
@@ -150,17 +156,25 @@ void Game::ProcessInput()
 			case SDL_QUIT:
 				mIsRunning = false;
 				break;
+			case SDL_KEYUP:
+			case SDL_KEYDOWN:
+				const Uint8* state = SDL_GetKeyboardState(NULL);
+				SDL_KeyboardEvent* key = &event.key;
+				mHero->ProcessKeyboard(state, key);
+				break;
 		}
 	}
+	// Made changes to ensure the skelton walked
+	//const Uint8* state = SDL_GetKeyboardState(NULL);
+	//SDL_KeyboardEvent* key = &event.key;
+	//if (state[SDL_SCANCODE_ESCAPE])
+	//{
+	//	mIsRunning = false;
+	//}
 
-	const Uint8* state = SDL_GetKeyboardState(NULL);
-	if (state[SDL_SCANCODE_ESCAPE])
-	{
-		mIsRunning = false;
-	}
-
-	// Process ship input
-	mShip->ProcessKeyboard(state);
+	//// Process ship input
+	////mShip->ProcessKeyboard(state);
+	//mHero->ProcessKeyboard(state, key);
 }
 
 void Game::UpdateGame()

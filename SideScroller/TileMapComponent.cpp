@@ -35,6 +35,17 @@ void TileMapComponent::Draw(SDL_Renderer* renderer)
 				r.x = static_cast<int>(mOwner->GetPosition().x + count);
 				r.y = static_cast<int>(mOwner->GetPosition().y + yCount);
 
+				if (loc == -1)
+				{
+					count += 32;
+					if (count % 1024 == 0)
+					{
+						count = 0;
+						yCount += 32;
+					}
+					continue;
+				}
+					
 				div_t result = std::div(loc, 8);
 				SDL_Rect s;
 				s.w = 32;

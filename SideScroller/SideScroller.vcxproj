@@ -145,6 +145,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Lasers.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Ship.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Hero.h" />
     <ClInclude Include="Lasers.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="resource.h" />
